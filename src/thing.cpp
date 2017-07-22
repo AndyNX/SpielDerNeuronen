@@ -1,6 +1,6 @@
 
 #include <vector>
-#include "worldMap.h"
+#include "WorldMap.cpp"
 #include <list>
 
 class thing
@@ -29,7 +29,7 @@ protected:
 	virtual void move();
 
 	virtual void look();
-	std::list<thing> sense(const worldMap& map)
+	std::list<thing> sense(const WorldMap& map)
 	{
 		look();
 	}
