@@ -1,22 +1,27 @@
+#ifndef THING
+#define THING
 
 #include <vector>
-#include "WorldMap.cpp"
+#include "WorldMap.h"
 #include <list>
+#include "SpatialVector.cpp"
 
-class thing
+class WorldMap; //forward declaration
+
+class Thing
 {
 protected:
-	std::vector<double> position;
-	std::vector<double> velocity;	// has to be reduced in every timestep by friction
+	SpatialVector position;
+	SpatialVector velocity;	// has to be reduced in every timestep by friction
 	//std::vector<double> acceleration;
 	//std::vector<double> orientation;
 	double health; // should be reduced in every timestep by a small amount
-	double maxHealth; // maybe things should split into children beyond a certain energy
+	double maxHealth; // maybe Things should split into children beyond a certain energy
 	double mass;
 	
 	double maxSpeed;
 	// double strength; // could also be a function s(health), with different objects having different maxHealth
-	std::list<thing> baggage;
+	std::list<Thing> baggage;
 	bool isFree;
 
 	// maybe all get Functions with some random uncertainty
@@ -29,19 +34,19 @@ protected:
 	virtual void move();
 
 	virtual void look();
-	std::list<thing> sense(const WorldMap& map)
+	std::list<Thing> sense(const WorldMap* map)
 	{
 		look();
 	}
 
-	virtual std::vector<double> plan(const std::list<thing>& environment);
+	virtual std::vector<double> plan(const std::list<Thing>& environment);
 	virtual void act(std::vector<double> plan);
 	// amount of drained energy should maybe be scale down by amount *= (own.energy - target.energy)/target.energy
 	// , but not more than factor 1.0
-	virtual void transferHealth(thing& target, double amount);	// = eat(), heal()
-	virtual void transferEnergy(thing& target, double amount);	// = throw()
-	virtual void pickUp(thing& target);
-	virtual void drop(thing& target);
-}
+	virtual void transferHealth(Thing& target, double amount);	// = eat(), heal()
+	virtual void transferEnergy(Thing& target, double amount);	// = throw()
+	virtual void pickUp(Thing& target);
+	virtual void drop(Thing& target);
+};
 
-
+#endif
