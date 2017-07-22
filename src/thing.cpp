@@ -3,6 +3,8 @@
 #include "worldMap.h"
 #include <list>
 
+// hello
+
 class thing
 {
 protected:
