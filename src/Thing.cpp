@@ -47,6 +47,15 @@ protected:
 	virtual void transferEnergy(Thing& target, double amount);	// = throw()
 	virtual void pickUp(Thing& target);
 	virtual void drop(Thing& target);
+        
+public:
+        const SpatialVector& getExactPosition() const; 
 };
+
+const SpatialVector& Thing::getExactPosition() const {
+ 
+    return position;
+    
+}
 
 #endif
