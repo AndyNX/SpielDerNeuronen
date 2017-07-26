@@ -15,11 +15,12 @@ class WorldMap {
  
 public:
     
-    virtual std::list<Thing> getLocalPeers(const SpatialVector&, double) = 0;       // returns a list within a circle
-                                                                                    // Note: functions like look()
-                                                                                    // shall provide further 
-                                                                                    // object filtering depending on
-                                                                                    // line of sight etc.
+    virtual std::list<Thing> getLocalPeers(const SpatialVector&, double, const SpatialVector&, double) = 0;       	// returns a list within a sector
+    
+																													// Note: functions like look()
+																													// shall provide further 
+																													// object filtering depending on
+																													// line of sight etc.
     
     virtual void progressInTime(double) = 0;                                // iterates over all the things
                                                                             // in the universe and calls

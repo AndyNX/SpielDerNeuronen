@@ -36,7 +36,9 @@ protected:
 	virtual void look();
 	std::list<Thing> sense(const WorldMap* map)
 	{
+		std::list<Thing> ret;
 		look();
+		return ret;
 	}
 
 	virtual std::vector<double> plan(const std::list<Thing>& environment);

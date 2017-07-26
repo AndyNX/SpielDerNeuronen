@@ -9,20 +9,34 @@ class WorldMapSimple : public WorldMap
     
     std::vector<Thing> map;
     
-    std::list<Thing> getLocalPeers(const SpatialVector& pos, double r);
+    std::list<Thing> getLocalPeers(const SpatialVector& pos, double r, const SpatialVector& dir, double a);
     
     void progressInTime(double t);
 };
 
-std::list<Thing> WorldMapSimple::getLocalPeers(const SpatialVector& pos, double r) {
+//returns all the objects within a sector
+std::list<Thing> WorldMapSimple::getLocalPeers(const SpatialVector& pos, double r, const SpatialVector& dir, double a) {
     
     std::list<Thing> ret;
     
-    // iterate over all the objects and return those within the radius
+    // iterate over all the objects
     for (std::vector<Thing>::iterator it = map.begin(); it != map.end(); it++) {
         
-        if (pos.distance(it->getExactPosition()) < r)             
-                ret.push_back(*it);
+        // process those within the radius
+        SpatialVector thingPos(it->getExactPosition());
+        
+        if (pos.distance(thingPos) < r) {             
+			
+			// evaluate the angle between line of sight (dir) and line towards thing
+			SpatialVector thingDir(thingPos);
+			thingDir -= pos;
+			
+			if (dir.angle(thingDir) < a) {
+				ret.push_back(*it);
+			}	
+			
+			
+		}
         
     }
     
